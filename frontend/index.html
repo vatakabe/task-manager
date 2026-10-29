@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <header class="page-header">
+            <h1>Менеджер задач</h1>
+            <p>Управляй своими задачами</p>
+        </header>
+
+        <section class="task-form-section">
+            <h2>Новая задача</h2>
+
+            <form id="task-form">
+                <label for="task-title">Название</label>
+                <input
+                    type="text"
+                    id="task-title"
+                    name="title"
+                    maxlength="200"
+                    required
+                    placeholder="Например, изучить Docker"
+                >
+
+                <label for="task-description">Описание</label>
+                <textarea
+                    id="task-description"
+                    name="description"
+                    placeholder="Что нужно сделать?"
+                ></textarea>
+
+                <button type="submit">Добавить задачу</button>
+            </form>
+        </section>
+
+        <section class="tasks-section">
+            <div class="tasks-header">
+                <h2>Мои задачи</h2>
+                <button id="refresh-tasks" type="button">
+                    Обновить список
+                </button>
+            </div>
+
+            <p id="status-message" role="status" aria-live="polite"></p>
+            <ul id="task-list"></ul>
+        </section>
+    </main>
+</body>
+</html>

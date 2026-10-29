@@ -1,0 +1,208 @@
+
+/* Базовые настройки: размеры и поведение элементов */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f5f9;
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+/* Основная область страницы */
+.container {
+    width: min(100% - 32px, 760px);
+    margin: 48px auto;
+}
+
+/* Заголовок */
+.page-header {
+    margin-bottom: 28px;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+}
+
+.page-header p {
+    margin: 0;
+    color: #6b7280;
+}
+
+/* Общий стиль блоков */
+.task-form-section,
+.tasks-section {
+    padding: 24px;
+    margin-bottom: 24px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+}
+
+/* Форма создания задачи */
+#task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#task-form label {
+    font-weight: 600;
+}
+
+#task-title,
+#task-description {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+#task-description {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#task-title:focus,
+#task-description:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563eb;
+}
+
+/* Кнопки */
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#task-form button {
+    margin-top: 8px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Заголовок секции со списком */
+.tasks-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.tasks-header h2 {
+    margin: 0;
+}
+
+#refresh-tasks {
+    background: #4b5563;
+}
+
+#refresh-tasks:hover {
+    background: #374151;
+}
+
+/* Сообщения пользователю */
+#status-message {
+    color: #6b7280;
+}
+
+/* Список задач */
+#task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Адаптация для узкого экрана */
+@media (max-width: 480px) {
+    .container {
+        margin: 24px auto;
+    }
+
+    .task-form-section,
+    .tasks-section {
+        padding: 16px;
+    }
+
+    .tasks-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .page-header h1 {
+        font-size: 28px;
+    }
+}
+
+/* Карточка отдельной задачи */
+.task-item {
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.task-item h3 {
+    margin: 0 0 8px;
+    overflow-wrap: anywhere;
+}
+
+.task-item p {
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+/* Кнопки действий */
+.task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.secondary-button {
+    background: #4b5563;
+}
+
+.secondary-button:hover {
+    background: #374151;
+}
+
+.delete-button {
+    background: #dc2626;
+}
+
+.delete-button:hover {
+    background: #b91c1c;
+}

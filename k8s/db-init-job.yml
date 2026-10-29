@@ -1,0 +1,52 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-init
+  namespace: task-manager
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: db-init
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db-init
+          image: postgres:18
+          env:
+            - name: PGHOST
+              value: postgres
+            - name: PGPORT
+              value: "5432"
+            - name: PGDATABASE
+              value: task_manager
+            - name: PGUSER
+              value: task_app
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+          volumeMounts:
+            - name: init-sql
+              mountPath: /sql
+              readOnly: true
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              until pg_isready -h "$PGHOST" -p "$PGPORT" -U "$PGUSER" -d "$PGDATABASE"; do
+                echo "Waiting for PostgreSQL..."
+                sleep 2
+              done
+
+              echo "Running database initialization..."
+              psql -v ON_ERROR_STOP=1 -f /sql/init.sql
+              echo "Database initialization completed."
+      volumes:
+        - name: init-sql
+          configMap:
+            name: db-init
