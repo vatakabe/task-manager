@@ -6,8 +6,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: task-manager.local
-      http:
+#    - host: task-manager.local
+     - http:
         paths:
           - path: /
             pathType: Prefix

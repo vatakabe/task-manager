@@ -1,5 +1,6 @@
+
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: postgres
   namespace: task-manager
@@ -7,24 +8,21 @@ spec:
   selector:
     matchLabels:
       app: postgres
+  serviceName: "postgres-headless"
   replicas: 1
   template:
     metadata:
       labels:
         app: postgres
     spec:
-      volumes:
-      - name: postgres-volume 
-        persistentVolumeClaim:
-          claimName: postgres-pvc
       containers:
       - name: postgres
         image: postgres:18
         ports:
         - containerPort: 5432
         volumeMounts:
-          - name: postgres-volume
-            mountPath: /var/lib/postgresql
+        - name: postgres-volume
+          mountPath: /var/lib/postgresql
         env:
           - name: POSTGRES_DB 
             value: "task_manager"
@@ -34,5 +32,14 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: postgres-secret
-                key: password
+                key: password  
 
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-volume
+      namespace: task-manager
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
