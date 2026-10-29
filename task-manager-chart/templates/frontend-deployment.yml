@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.frontend.componentName }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "task-manager-chart.labels" . | nindent 4}}
+    app.kubernetes.io/component: {{ .Values.frontend.componentName }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "task-manager-chart.labels" . | nindent 6}}
+      app.kubernetes.io/component: {{ .Values.frontend.componentName }}
+  template:
+    metadata:
+      labels:
+        {{- include "task-manager-chart.labels" . | nindent 8}}
+        app.kubernetes.io/component: {{ .Values.frontend.componentName }}
+    spec:
+      containers:
+      - name: {{ .Values.frontend.componentName }}
+        image: {{ .Values.frontend.image }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
